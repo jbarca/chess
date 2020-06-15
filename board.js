@@ -17,6 +17,14 @@ class Board {
         }
     }
 
+    get(x, y) {
+        return this.board[x][y];
+    }
+
+    addPiece(newPiece, x, y) {
+        this.board[x][y] = newPiece;
+    }
+
     getBoard() {
         var newBoard = [];
         this.constructBoard(newBoard);
