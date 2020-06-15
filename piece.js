@@ -1,0 +1,1 @@
+// abstract class that contains the basic functionality for a piece
