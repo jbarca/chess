@@ -21,6 +21,19 @@ class Board {
         return this.board[x][y];
     }
 
+    movePiece(x1, y1, x2, y2) {
+        var piece = this.board[x1][y1];
+        if (this.isValidMove(piece, x2, y2)) {
+            piece.move(x2, y2);
+            this.board[x1][y1] = null;
+            this.board[x2][y2] = piece;
+        }
+    }
+
+    isValidMove(piece, x, y) {
+        return piece.isValidMove(x, y, this);
+    }
+
     addPiece(newPiece, x, y) {
         this.board[x][y] = newPiece;
     }

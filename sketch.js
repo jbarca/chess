@@ -5,8 +5,28 @@ var board;
 var pieces = [];
 
 function preload() {
-  pieces.push(new Pawn(loadImage('assets/pawn_white.png'), "WHITE", 1, 0));
-  pieces.push(new Pawn(loadImage('assets/pawn_white.png'), "WHITE", 6, 0));
+  // Load all the pieces in their initial positions
+  for (var i = 0; i < boardSize; i++) {
+    pieces.push(new Pawn(loadImage('assets/pawn_black.png'), "BLACK", 1, i));
+    pieces.push(new Pawn(loadImage('assets/pawn_white.png'), "WHITE", 6, i));
+  }
+
+  pieces.push(new Rook(loadImage('assets/rook_white.png'), "WHITE", 7, 0));
+  pieces.push(new Rook(loadImage('assets/rook_black.png'), "BLACK", 0, 0));
+  pieces.push(new Knight(loadImage('assets/knight_white.png'), "WHITE", 7, 1));
+  pieces.push(new Knight(loadImage('assets/knight_black.png'), "BLACK", 0, 1));
+  pieces.push(new Bishop(loadImage('assets/bishop_white.png'), "WHITE", 7, 2));
+  pieces.push(new Bishop(loadImage('assets/bishop_black.png'), "BLACK", 0, 2));
+  pieces.push(new Queen(loadImage('assets/queen_white.png'), "WHITE", 7, 3));
+  pieces.push(new Queen(loadImage('assets/queen_black.png'), "BLACK", 0, 3));
+  pieces.push(new King(loadImage('assets/king_white.png'), "WHITE", 7, 4));
+  pieces.push(new King(loadImage('assets/king_black.png'), "BLACK", 0, 4));
+  pieces.push(new Bishop(loadImage('assets/bishop_white.png'), "WHITE", 7, 5));
+  pieces.push(new Bishop(loadImage('assets/bishop_black.png'), "BLACK", 0, 5));
+  pieces.push(new Knight(loadImage('assets/knight_white.png'), "WHITE", 7, 6));
+  pieces.push(new Knight(loadImage('assets/knight_black.png'), "BLACK", 0, 6));
+  pieces.push(new Rook(loadImage('assets/rook_white.png'), "WHITE", 7, 7));
+  pieces.push(new Rook(loadImage('assets/rook_black.png'), "BLACK", 0, 7));
 }
 
 function setup() {
@@ -17,6 +37,8 @@ function setup() {
     for (var i = 0; i < pieces.length; i++) {
       board.addPiece(pieces[i], pieces[i].getX(), pieces[i].getY());
     }
+
+    board.movePiece(1, 0, 3, 0);
 }
   
 function draw() {
@@ -29,7 +51,7 @@ function draw() {
         fill(255);
       }
       else {
-        fill(0);
+        fill(125);
       }
       rect(j * width / boardSize, i * height / boardSize, width / boardSize, height / boardSize);
       if (board.get(i, j)) {
