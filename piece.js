@@ -7,6 +7,7 @@ class Piece {
         this.side = side;
         this.x = x;
         this.y = y;
+        this.isSelected = false;
         this.moves = 0;
     }
 
@@ -34,9 +35,17 @@ class Piece {
         return this.y;
     }
 
+    getSelected() {
+        return this.isSelected;
+    }
+
+    setSelected(selected) {
+        this.isSelected = selected;
+    }
+
     display(boardSize) {
         image(this.asset, (this.y * width / boardSize) + (width / ((boardSize * 2) + 1)), 
-        (this.x * height / boardSize) + (height / ((boardSize * 2) + 1)), 40, 40);
+        (this.x * height / boardSize) + (height / ((boardSize * 2) + 1)), 50, 50);
     }
 
 }

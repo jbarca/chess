@@ -4,6 +4,7 @@ class Board {
     constructor(boardSize) {
         this.boardSize = boardSize;
         this.board = [];
+        this.currentlySelected = null;
         this.constructBoard(this.board);
     }
 
@@ -36,6 +37,16 @@ class Board {
 
     addPiece(newPiece, x, y) {
         this.board[x][y] = newPiece;
+    }
+
+    selectPiece(x, y) {
+        if (this.board[x][y] !== null) {
+            if (this.currentlySelected !== null) {
+                this.currentlySelected.setSelected(false);
+            }
+            this.currentlySelected = this.board[x][y];
+            this.currentlySelected.setSelected(true);
+        }
     }
 
     getBoard() {

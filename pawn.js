@@ -6,11 +6,18 @@ class Pawn extends Piece {
     }
 
     isValidMove(x, y, board) {
-        return (this.side === "WHITE" && this.y === y
-            && (x === this.x - 1 || (x === this.x - 2 && this.moves == 0)) 
-            && board.get(x, y) === null) ||
-            (this.side === "BLACK" && this.y == y && 
-            (x === this.x + 1 || (x === this.x + 2 && this.moves == 0)) 
-            && board.get(x, y) === null);
+        const validY = this.y === y;
+        const containsPiece = board.get(x, y) !== null;
+        const whiteSide = this.side === "WHITE";
+        const blackSide = this.side === "BLACK";
+        const whiteMove = x === this.x - 1 || (x === this.x - 2 && this.moves == 0);
+        const blackMove = x === this.x + 1 || (x === this.x + 2 && this.moves == 0);
+        const whiteTake = x === this.x - 1 && y === this.y - 1 && containsPiece;
+        const blackTake = x === this.x + 1 && y === this.y + 1 && containsPiece;
+
+        return (whiteSide && ((whiteMove && !containsPiece && validY) 
+            || (whiteTake && containsPiece && this.canTake(board.get(x, y))))) ||
+            (blackSide && ((blackMove && !containsPiece && validY) || 
+               (blackTake && containsPiece && this.canTake(board.get(x, y)))));
     }
 }

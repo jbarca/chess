@@ -4,6 +4,9 @@ const boardSize = 8;
 var board;
 var pieces = [];
 
+// TODO: Implement getValidMoves() function and display the valid moves
+// when a piece is selected.
+
 function preload() {
   // Load all the pieces in their initial positions
   for (var i = 0; i < boardSize; i++) {
@@ -38,11 +41,16 @@ function setup() {
       board.addPiece(pieces[i], pieces[i].getX(), pieces[i].getY());
     }
 
-    board.movePiece(1, 0, 3, 0);
+    board.movePiece(1, 0, 2, 0);
+    board.movePiece(6, 1, 4, 1);
+    board.movePiece(2, 0, 3, 0);
+    board.movePiece(4, 1, 3, 0);
+    //board.movePiece(3, 0, 2, 0);
+    //board.movePiece(3, 0, 4, 1);
 }
   
 function draw() {
-  background(220);
+  //background(220);
 
   // draw the grid
   for (var i = 0; i < boardSize; i++) {
@@ -53,10 +61,24 @@ function draw() {
       else {
         fill(125);
       }
+      if (board.get(i, j)) {
+        if (board.get(i, j).getSelected()) {
+          fill(255, 204, 0);
+        }
+      }
+
       rect(j * width / boardSize, i * height / boardSize, width / boardSize, height / boardSize);
       if (board.get(i, j)) {
         board.get(i, j).display(boardSize);
       }
     }
+  }
+}
+
+function mouseClicked() {
+  if (mouseButton === LEFT) {
+    const x = floor(mouseX / (width / boardSize));
+    const y = floor(mouseY / (height / boardSize));
+    board.selectPiece(y, x);
   }
 }
