@@ -44,15 +44,40 @@ class Board {
             if (this.currentlySelected !== null) {
                 this.currentlySelected.setSelected(false);
             }
-            this.currentlySelected = this.board[x][y];
-            this.currentlySelected.setSelected(true);
+            if (this.currentlySelected == this.board[x][y]) {
+                this.currentlySelected.setSelected(false);
+                this.currentlySelected = null;
+            }
+            else {
+                this.currentlySelected = this.board[x][y];
+                this.currentlySelected.setSelected(true);
+            }
         }
+    }
+
+    getSelected() {
+        return this.currentlySelected;
     }
 
     getBoard() {
         var newBoard = [];
         this.constructBoard(newBoard);
         return newBoard;
+    }
+
+    getValidMoves(x, y) {
+        var validMoves = [];
+        var piece = this.board[x][y];
+        if (piece !== null) {
+            for (var i = 0; i < boardSize; i++) {
+                for (var j = 0; j < boardSize; j++) {
+                    if (this.isValidMove(piece, i, j)) {
+                        validMoves.push([i, j]);
+                    }
+                }
+            }
+        }
+        return validMoves;
     }
 
 }

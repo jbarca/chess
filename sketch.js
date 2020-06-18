@@ -40,13 +40,6 @@ function setup() {
     for (var i = 0; i < pieces.length; i++) {
       board.addPiece(pieces[i], pieces[i].getX(), pieces[i].getY());
     }
-
-    board.movePiece(1, 0, 2, 0);
-    board.movePiece(6, 1, 4, 1);
-    board.movePiece(2, 0, 3, 0);
-    board.movePiece(4, 1, 3, 0);
-    //board.movePiece(3, 0, 2, 0);
-    //board.movePiece(3, 0, 4, 1);
 }
   
 function draw() {
@@ -66,12 +59,33 @@ function draw() {
           fill(255, 204, 0);
         }
       }
-
       rect(j * width / boardSize, i * height / boardSize, width / boardSize, height / boardSize);
       if (board.get(i, j)) {
         board.get(i, j).display(boardSize);
       }
     }
+  }
+
+  // once all squares have been drawn, draw valid moves for a piece if that
+  // piece has been selected.
+  for (var i = 0; i < boardSize; i++) {
+    for (var j = 0; j < boardSize; j++) {
+      if (board.get(i, j)) {
+        if (board.get(i, j).getSelected()) {
+          displayValidMoves(board.getValidMoves(i, j));
+        }
+      }
+    }
+  }
+}
+
+function displayValidMoves(validMoves) {
+  fill(255, 0, 0);
+  for (var k = 0; k < validMoves.length; k++) {
+    var r = validMoves[k][0];
+    var c = validMoves[k][1];
+    circle((c * width / boardSize) + (width / (boardSize * 2)),
+     (r * height / boardSize) + (height / (boardSize * 2)), 20);
   }
 }
 
@@ -79,6 +93,14 @@ function mouseClicked() {
   if (mouseButton === LEFT) {
     const x = floor(mouseX / (width / boardSize));
     const y = floor(mouseY / (height / boardSize));
-    board.selectPiece(y, x);
+
+    console.log(board.getValidMoves(y, x));
+    var piece = board.getSelected();
+    if (piece !== null && board.isValidMove(piece, y, x)) {
+      board.movePiece(piece.getX(), piece.getY(), y, x);
+    }
+    else {
+      board.selectPiece(y, x);
+    }
   }
 }
