@@ -43,7 +43,7 @@ function setup() {
 }
   
 function draw() {
-  //background(220);
+  background(220);
 
   // draw the grid
   for (var i = 0; i < boardSize; i++) {

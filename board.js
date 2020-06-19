@@ -31,6 +31,12 @@ class Board {
         }
     }
 
+    // finish this function to determine if a piece is in the way of the
+    // straight line in direction dir.
+    isBlocking(x, y, dir) {
+
+    }
+
     isValidMove(piece, x, y) {
         return piece.isValidMove(x, y, this);
     }
