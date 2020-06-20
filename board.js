@@ -33,8 +33,15 @@ class Board {
 
     // finish this function to determine if a piece is in the way of the
     // straight line in direction dir.
-    isBlocking(x, y, dir) {
-
+    findObstruction(x, y, dir) {
+        var curr_loc = [x, y];
+        while (this.board[curr_loc[0]][curr_loc[1]] === null
+            && curr_loc[0] + dir[0] >= 0 && curr_loc[0] + dir[0] < this.boardSize
+            && curr_loc[1] + dir[1] >= 0 && curr_loc[1] + dir[1] < this.boardSize) {
+            curr_loc[0] += dir[0];
+            curr_loc[1] += dir[1];
+        }
+        return curr_loc;
     }
 
     isValidMove(piece, x, y) {

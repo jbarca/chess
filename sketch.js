@@ -94,7 +94,6 @@ function mouseClicked() {
     const x = floor(mouseX / (width / boardSize));
     const y = floor(mouseY / (height / boardSize));
 
-    console.log(board.getValidMoves(y, x));
     var piece = board.getSelected();
     if (piece !== null && board.isValidMove(piece, y, x)) {
       board.movePiece(piece.getX(), piece.getY(), y, x);

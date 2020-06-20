@@ -6,7 +6,8 @@ class Rook extends Piece {
     }
 
     isValidMove(x, y, board) {
-        const moveUp = y === this.y && board.get(x, y) === null;
+        const obs = board.findObstruction(x, y, [0, -1]);
+        const moveUp = y === this.y && board.get(x, y) === null && y <= obs[1];
         return moveUp;
     }
 }
